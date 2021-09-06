@@ -3,9 +3,12 @@ from flask import Flask, request, url_for
 app = Flask(__name__)
 
 @app.route('/')
-@app.route('/hello')
 def hello_world():
     return 'Hello World!'
+
+@app.route('/hello/<name>')
+def hello_name(name):
+    return 'Hello %s!' % name
 
 @app.route('/object/<int:id>')
 def callback(id):
@@ -16,8 +19,8 @@ def callback(id):
 def show_loginform():
     return '''
         <form action="/login" method="post">
-            Username: <input name="username" type="text" />
-            Password: <input name="password" type="password" />
+            Username : <input name="username" type="text" />
+            Password : <input name="password" type="password" />
             <input value="Login" type="submit" />
         </form>
     '''
@@ -36,4 +39,38 @@ def do_login():
         return "<p>Your login information was correct.</p>"
     else:
         return "<p>Login failed.</p>"
+
+@app.route('/question', methods=['GET'])
+def question():
+   return request.args.get('answer')
+
+@app.route('/question', methods=['POST'])
+def form_question():
+    return request.form.get('answer')
+
+@app.route('/questionall', methods=['GET', 'POST'])
+def question_all():
+	return request.values.get('answer')
+
+@app.route('/json', methods=['POST'])
+def json():
+   print(request.get_json())
+   return str(request.get_json())
+
+@app.route('/path', methods=['GET', 'POST'])
+def get_path():
+   return ("path: %s<br>"
+      "script_root: %s<br>"
+      "url: %s<br>"
+      "base_url: %s<br>"
+      "url_root: %s<br>") % (request.path, request.script_root,
+         request.url, request.base_url, request.url_root)
+
+from flask import Response
+@app.route('/response')
+def custom_response():
+   resp = Response("응답 테스트")
+   resp.headers.add('Text-Name', 'Response Test')
+   resp.set_data('이것은 응답 테스트입니다')
+   return resp
 
