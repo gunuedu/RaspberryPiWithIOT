@@ -12,7 +12,7 @@ Rectangle {
     height: 80
     color: "darkgrey"
     //z: 1
-    clip: true
+    //clip: true
     Text {
       text: "월요일 10시는"
     }

@@ -74,3 +74,31 @@ def custom_response():
    resp.set_data('이것은 응답 테스트입니다')
    return resp
 
+from flask import redirect
+@app.route('/hi')
+def hi():
+  return  redirect("/hello")
+
+@app.route('/hello')
+def hi_hello():
+  return  "Hello"
+
+@app.errorhandler(404)
+def error404(error):
+  return "이 페이지는 존재하지 않습니다."
+
+from flask import abort
+@app.route('/wrong')
+def wrong():
+   abort(401, "죄송합니다. 이 페이지는 존재하지 않습니다.")
+
+from flask import make_response
+@app.route('/cookie')
+def hello_again():
+   if request.cookies.get("visited"):
+      return "Welcome back! Nice to see you again"
+   else:
+      response = make_response("Hello there! Nice to meet you")
+      response.set_cookie("visited", "yes")
+      return response
+
