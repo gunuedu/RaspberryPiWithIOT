@@ -8,8 +8,9 @@ def handler(channel):
     count = count + 1
     print count
 
-GPIO.setup(24, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+#GPIO.setup(24, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(24, GPIO.IN)
 GPIO.add_event_detect(24, GPIO.RISING, callback=handler)
-while True:
+While True:
     time.sleep(1)
 

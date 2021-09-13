@@ -1,7 +1,8 @@
 import serial
 
-con = serial.Serial('/dev/ttyAMA0', 9600)
+con = serial.Serial('/dev/ttyS0', 9600, timeout=5)
 
 while True:
-    text = con.readlines()
-    print text+'\r\n'
+    text = input("Input any text message: ")
+    print( "Number of output characters : %d" % con.write(bytes(text.encode())) )
+
