@@ -2,7 +2,7 @@ import pyowm
 import time
 
 # create client
-owm = pyowm.OWM('e007b5caf888aef5bbc9f1197b7c77cd')
+owm = pyowm.OWM('75cc5728ae629e3fcfed322e505f9598')
 mgr = owm.weather_manager()
 
 lat = 37.43223
